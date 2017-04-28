@@ -1,0 +1,152 @@
+/**************************************
+README：
+此程式將會以每0.5秒轉換一個數字，由0~9
+以測試七段顯示器電路是否正常
+***************************************/
+
+
+
+int a = 2; //定義數字接口7 連接a 段數碼管
+int b = 3; // 定義數字接口6 連接b 段數碼管
+int c = 4; // 定義數字接口5 連接c 段數碼管
+int d = 5; // 定義數字接口10 連接d 段數碼管
+int e = 6; // 定義數字接口11 連接e 段數碼管
+int f = 7; // 定義數字接口8 連接f 段數碼管
+int g = 8; // 定義數字接口9 連接g 段數碼管
+
+
+void digital_0(void) //顯示數字5
+{
+  unsigned char j;
+  digitalWrite(a, HIGH);
+  digitalWrite(b, HIGH);
+  digitalWrite(c, HIGH);
+  digitalWrite(d, HIGH);
+  digitalWrite(e, HIGH);
+  digitalWrite(f, HIGH);
+  digitalWrite(g, LOW);
+  digitalWrite(dp, LOW);
+}
+void digital_1(void) //顯示數字1
+{
+  unsigned char j;
+  digitalWrite(c, HIGH); //給數字接口5 引腳高電平，點亮c 段
+  digitalWrite(b, HIGH); //點亮b 段
+  for (j = 7; j <= 11; j++) //熄滅其餘段
+    digitalWrite(j, LOW);
+  digitalWrite(dp, LOW); //熄滅小數點DP 段
+}
+void digital_2(void) //顯示數字2
+{
+  unsigned char j;
+  digitalWrite(b, HIGH);
+  digitalWrite(a, HIGH);
+  for (j = 9; j <= 11; j++)
+    digitalWrite(j, HIGH);
+  digitalWrite(dp, LOW);
+  digitalWrite(c, LOW);
+  digitalWrite(f, LOW);
+}
+void digital_3(void) //顯示數字3
+{
+  digitalWrite(g, HIGH);
+  digitalWrite(a, HIGH);
+  digitalWrite(b, HIGH);
+  digitalWrite(c, HIGH);
+  digitalWrite(d, HIGH);
+  digitalWrite(dp, LOW);
+  digitalWrite(f, LOW);
+  digitalWrite(e, LOW);
+}
+void digital_4(void) //顯示數字4
+{
+  digitalWrite(c, HIGH);
+  digitalWrite(b, HIGH);
+  digitalWrite(f, HIGH);
+  digitalWrite(g, HIGH);
+  digitalWrite(dp, LOW);
+  digitalWrite(a, LOW);
+  digitalWrite(e, LOW);
+  digitalWrite(d, LOW);
+}
+void digital_5(void) //顯示數字5
+{
+  unsigned char j;
+  digitalWrite(a, HIGH);
+  digitalWrite(b, LOW);
+  digitalWrite(c, HIGH);
+  digitalWrite(d, HIGH);
+  digitalWrite(e, LOW);
+  digitalWrite(f, HIGH);
+  digitalWrite(g, HIGH);
+  digitalWrite(dp, LOW);
+}
+void digital_6(void) //顯示數字6
+{
+  unsigned char j;
+  for (j = 7; j <= 11; j++)
+    digitalWrite(j, HIGH);
+  digitalWrite(c, HIGH);
+  digitalWrite(dp, LOW);
+  digitalWrite(b, LOW);
+}
+void digital_7(void) //顯示數字7
+{
+  unsigned char j;
+  for (j = 5; j <= 7; j++)
+    digitalWrite(j, HIGH);
+  digitalWrite(dp, LOW);
+  for (j = 8; j <= 11; j++)
+    digitalWrite(j, LOW);
+}
+void digital_8(void) //顯示數字8
+{
+  unsigned char j;
+  for (j = 5; j <= 11; j++)
+    digitalWrite(j, HIGH);
+  digitalWrite(dp, LOW);
+}
+void digital_9(void) //顯示數字5
+{
+  unsigned char j;
+  digitalWrite(a, HIGH);
+  digitalWrite(b, HIGH);
+  digitalWrite(c, HIGH);
+  digitalWrite(d, HIGH);
+  digitalWrite(e, LOW);
+  digitalWrite(f, HIGH);
+  digitalWrite(g, HIGH);
+  digitalWrite(dp, LOW);
+}
+void setup()
+{
+  int i;//定義變量
+  for (i = 4; i <= 11; i++)
+    pinMode(i, OUTPUT); //設置4～11 引腳為輸出模式
+}
+void loop()
+{
+  while (1)
+  {
+    digital_0();//顯示數字1
+    delay(500);//延時1s
+    digital_1();//顯示數字1
+    delay(500);//延時1s
+    digital_2();//顯示數字2
+    delay(500); //延時1s
+    digital_3();//顯示數字3
+    delay(500); //延時1s
+    digital_4();//顯示數字4
+    delay(500); //延時1s
+    digital_5();//顯示數字5
+    delay(500); //延時1s
+    digital_6();//顯示數字6
+    delay(500); //延時1s
+    digital_7();//顯示數字7
+    delay(500); //延時1s
+    digital_8();//顯示數字8
+    delay(500); //延時1s
+    digital_9();//顯示數字8
+    delay(500); //延時1s
+  }
+}
