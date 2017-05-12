@@ -1,8 +1,8 @@
-/**************************************
-README：
-此程式將會以每0.5秒轉換一個數字，由0~9
-以測試七段顯示器電路是否正常
-***************************************/
+// new code_V3
+
+int potpin = 0; //定義類比介面0
+int val = 0; //將定義變數val,並賦初值0
+int list;
 
 //定義數碼管port
 int Apipe = 2;
@@ -121,32 +121,49 @@ void print9(void) {
 }
 
 void setup() {
-  int i;//定義變量
-  for (i = 2; i <= 8; i++)
-    pinMode(i, OUTPUT); //設置4～11 引腳為輸出模式
+  int p;  //區域變數i，給定義輸出針腳使用
+  for (p = 1; p <= 8; p++)
+    pinMode(p, OUTPUT); //把1~8針腳設定為輸出電流
+
+  Serial.begin(9600);//設置串列傳輸速率為9600
 }
 
+
 void loop() {
-  while (1) {
-    print0();
-    delay(500);
-    print1();
-    delay(500);
+  val = analogRead(potpin); //讀取類比介面0 的值，並將其賦給val
+  Serial.println(val);//顯示出val 的值
+
+  if (val <= 99) {
+    Serial.println("Rage in 0~99");
+    print0(); //數碼管輸出數字1
+  } else if (val <= 199 && val >= 100) {
+    Serial.println("Rage in 100~199");
+    print1(); //數碼管輸出數字2
+  } else if (val <= 299 && val >= 200) {
+    Serial.println("Rage in 200~299");
     print2();
-    delay(500);
+  } else if (val <= 399 && val >= 300) {
+    Serial.println("Rage in 300~399");
     print3();
-    delay(500);
+  } else if (val <= 499 && val >= 400) {
+    Serial.println("Rage in 400~499");
     print4();
-    delay(500);
+  } else if (val <= 599 && val >= 500) {
+    Serial.println("Rage in 500~599");
     print5();
-    delay(500);
+  } else if (val <= 699 && val >= 600) {
+    Serial.println("Rage in 600~699");
     print6();
-    delay(500);
+  } else if (val <= 799 && val >= 700) {
+    Serial.println("Rage in 700~799");
     print7();
-    delay(500);
+  } else if (val <= 899 && val >= 800) {
+    Serial.println("Rage in 800~899");
     print8();
-    delay(500);
+  } else if (val <= 999 && val >= 900) {
+    Serial.println("Rage in 900~999");
     print9();
-    delay(500);
+  } else {
+    Serial.println("Out of rage");
   }
 }
