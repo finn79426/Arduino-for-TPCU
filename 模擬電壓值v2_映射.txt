@@ -1,0 +1,164 @@
+// new_code
+
+int potpin = 0; //定義類比介面0
+int val = 0; //將定義變數val,並賦初值0
+int list;
+
+//定義數碼管port
+int Apipe = 2;
+int Bpipe = 3;
+int Cpipe = 4;
+int Dpipe = 5;
+int Epipe = 6;
+int Fpipe = 7;
+int Gpipe = 8;
+
+int v;  //定義變數v給後面map函式用
+
+/*******顯示數字0********/
+void print0(void) {
+  unsigned char list;
+  for (list = Apipe ; list <= Fpipe ; list++)
+    digitalWrite(list, HIGH);
+  digitalWrite(Gpipe, LOW);
+  // A~F管亮，G管滅
+}
+
+/*******顯示數字1********/
+void print1(void) {
+  unsigned char list;
+  for (list = Dpipe; list <= 8; list++)
+    digitalWrite(list, LOW);
+  digitalWrite(Apipe, LOW);
+  //把A、D、E、F、G燈管熄滅
+  digitalWrite(Bpipe, HIGH);
+  digitalWrite(Cpipe, HIGH);
+}
+
+/*******顯示數字2********/
+void print2(void) {
+  digitalWrite(Apipe, HIGH);
+  digitalWrite(Bpipe, HIGH);
+  digitalWrite(Cpipe, LOW);
+  digitalWrite(Dpipe, HIGH);
+  digitalWrite(Epipe, HIGH);
+  digitalWrite(Fpipe, LOW);
+  digitalWrite(Gpipe, HIGH);
+}
+
+/*******顯示數字3********/
+void print3(void) {
+  unsigned char list;
+  for (list = Apipe; list <= Dpipe; list++)
+    digitalWrite(list, HIGH);//一次亮A~Dpipe
+  digitalWrite(Gpipe, HIGH);
+
+  digitalWrite(Fpipe, LOW);
+  digitalWrite(Epipe, LOW);
+}
+
+/*******顯示數字4********/
+void print4(void) {
+  digitalWrite(Apipe, LOW);
+  digitalWrite(Bpipe, HIGH);
+  digitalWrite(Cpipe, HIGH);
+  digitalWrite(Dpipe, LOW);
+  digitalWrite(Epipe, LOW);
+  digitalWrite(Fpipe, HIGH);
+  digitalWrite(Gpipe, HIGH);
+}
+
+/*******顯示數字5********/
+void print5(void) {
+  digitalWrite(Apipe, HIGH);
+  digitalWrite(Bpipe, LOW);
+  digitalWrite(Cpipe, HIGH);
+  digitalWrite(Dpipe, HIGH);
+  digitalWrite(Epipe, LOW);
+  digitalWrite(Fpipe, HIGH);
+  digitalWrite(Gpipe, HIGH);
+}
+
+/*******顯示數字6********/
+void print6(void) {
+  digitalWrite(Apipe, HIGH);
+  digitalWrite(Bpipe, LOW);
+  digitalWrite(Cpipe, HIGH);
+  digitalWrite(Dpipe, HIGH);
+  digitalWrite(Epipe, HIGH);
+  digitalWrite(Fpipe, HIGH);
+  digitalWrite(Gpipe, HIGH);
+}
+
+/*******顯示數字7********/
+void print7(void) {
+  unsigned char list;
+  for (list = Apipe; list <= Cpipe; list++)
+    digitalWrite(list, HIGH);
+  // ABC管亮
+  digitalWrite(Dpipe, LOW);
+  digitalWrite(Epipe, LOW);
+  digitalWrite(Fpipe, HIGH);
+  digitalWrite(Gpipe, LOW);
+}
+
+/*******顯示數字8********/
+void print8(void) {
+  unsigned char list;
+  for (list = Apipe; list <= Gpipe; list++)
+    digitalWrite(list, HIGH);
+  // 全部管亮
+}
+
+/*******顯示數字9********/
+void print9(void) {
+  unsigned char list;
+  for (list = Apipe; list <= Dpipe; list++)
+    digitalWrite(list, HIGH);
+  // ABCD管亮
+  digitalWrite(Epipe, LOW);
+  digitalWrite(Fpipe, HIGH);
+  digitalWrite(Gpipe, HIGH);
+}
+
+void setup() {
+  int p;  //區域變數i，給定義輸出針腳使用
+  for (p = 1; p <= 8; p++)
+    pinMode(p, OUTPUT); //把1~8針腳設定為輸出電流
+
+  Serial.begin(9600);//設置串列傳輸速率為9600
+}
+
+
+void loop() {
+  val = analogRead(potpin); //讀取類比介面0 的值，並將其賦給val
+  v = map(val, 0, 1023, 0, 500);
+  /* map函式將0~1023映射到0~500上 */
+
+  Serial.println((float)v / 100.00);
+
+  /**************************
+   *注意* 上面只是把v轉成float，v變數值不變
+  **************************/
+
+
+  if (v <= 100 && v >= 0) {
+    Serial.println("Rage in 0");
+    print0(); //數碼管輸出數字1
+  } else if (v <= 199 && v >= 100) {
+    Serial.println("Rage in 1");
+    print1(); //數碼管輸出數字2
+  } else if (v <= 299 && v >= 200) {
+    Serial.println("Rage in 2");
+    print2();
+  } else if (v <= 399 && v >= 300) {
+    Serial.println("Rage in 3");
+    print3();
+  } else if (v <= 499 && v >= 400) {
+    Serial.println("Rage in 4");
+    print4();
+  } else if (v <= 599 && v >= 500) {
+    Serial.println("Rage in 5");
+    print5();
+  }
+}
