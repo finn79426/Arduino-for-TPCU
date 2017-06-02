@@ -1,0 +1,189 @@
+//定義數碼管port
+int Apipe = 2;
+int Bpipe = 3;
+int Cpipe = 4;
+int Dpipe = 5;
+int Epipe = 6;
+int Fpipe = 7;
+int Gpipe = 8;
+
+
+/*定義LED port*/
+int Rled = 9;  //紅
+int Yled = 10; //黃
+int Gled = 11; //綠
+
+/*******顯示數字0********/
+void print0(void) {
+  unsigned char list;
+  for (list = Apipe ; list <= Fpipe ; list++)
+    digitalWrite(list, HIGH);
+  digitalWrite(Gpipe, LOW);
+  // A~F管亮，G管滅
+}
+
+/*******顯示數字1********/
+void print1(void) {
+  unsigned char list;
+  for (list = Apipe; list <= 5; list++)
+    digitalWrite(list, LOW);
+  //把A、B、C、D燈管熄滅
+  digitalWrite(Gpipe, LOW); //G管熄滅
+
+  digitalWrite(Epipe, HIGH);
+  digitalWrite(Fpipe, HIGH);
+}
+
+/*******顯示數字2********/
+void print2(void) {
+  digitalWrite(Apipe, HIGH);
+  digitalWrite(Bpipe, HIGH);
+  digitalWrite(Cpipe, LOW);
+  digitalWrite(Dpipe, HIGH);
+  digitalWrite(Epipe, HIGH);
+  digitalWrite(Fpipe, LOW);
+  digitalWrite(Gpipe, HIGH);
+}
+
+/*******顯示數字3********/
+void print3(void) {
+  unsigned char list;
+  for (list = Apipe; list <= Dpipe; list++)
+    digitalWrite(list, HIGH);//一次亮A~Dpipe
+  digitalWrite(Gpipe, HIGH);
+
+  digitalWrite(Fpipe, LOW);
+  digitalWrite(Epipe, LOW);
+}
+
+/*******顯示數字4********/
+void print4(void) {
+  digitalWrite(Apipe, LOW);
+  digitalWrite(Bpipe, HIGH);
+  digitalWrite(Cpipe, HIGH);
+  digitalWrite(Dpipe, LOW);
+  digitalWrite(Epipe, LOW);
+  digitalWrite(Fpipe, HIGH);
+  digitalWrite(Gpipe, HIGH);
+}
+
+/*******顯示數字5********/
+void print5(void) {
+  digitalWrite(Apipe, HIGH);
+  digitalWrite(Bpipe, LOW);
+  digitalWrite(Cpipe, HIGH);
+  digitalWrite(Dpipe, HIGH);
+  digitalWrite(Epipe, LOW);
+  digitalWrite(Fpipe, HIGH);
+  digitalWrite(Gpipe, HIGH);
+}
+
+/*******顯示數字6********/
+void print6(void) {
+  digitalWrite(Apipe, HIGH);
+  digitalWrite(Bpipe, LOW);
+  digitalWrite(Cpipe, HIGH);
+  digitalWrite(Dpipe, HIGH);
+  digitalWrite(Epipe, HIGH);
+  digitalWrite(Fpipe, HIGH);
+  digitalWrite(Gpipe, HIGH);
+}
+
+/*******顯示數字7********/
+void print7(void) {
+  unsigned char list;
+  for (list = Apipe; list <= Cpipe; list++)
+    digitalWrite(list, HIGH);
+  // ABC管亮
+  digitalWrite(Dpipe, LOW);
+  digitalWrite(Epipe, LOW);
+  digitalWrite(Fpipe, HIGH);
+  digitalWrite(Gpipe, LOW);
+}
+
+/*******顯示數字8********/
+void print8(void) {
+  unsigned char list;
+  for (list = Apipe; list <= Gpipe; list++)
+    digitalWrite(list, HIGH);
+  // 全部管亮
+}
+
+/*******顯示數字9********/
+void print9(void) {
+  unsigned char list;
+  for (list = Apipe; list <= Dpipe; list++)
+    digitalWrite(list, HIGH);
+  // ABCD管亮
+  digitalWrite(Epipe, LOW);
+  digitalWrite(Fpipe, HIGH);
+  digitalWrite(Gpipe, HIGH);
+}
+
+void count9sec(void) { //倒數9秒副程式
+  print9();
+  delay(1000);
+  print8();
+  delay(1000);
+  print7();
+  delay(1000);
+  print6();
+  delay(1000);
+  print5();
+  delay(1000);
+  print4();
+  delay(1000);
+  print3();
+  delay(1000);
+  print2();
+  delay(1000);
+  print1();
+  delay(1000);
+  print0();
+  delay(1000);
+}
+
+void count7sec(void) { //倒數7秒副程式
+  print7();
+  delay(1000);
+  print6();
+  delay(1000);
+  print5();
+  delay(1000);
+  print4();
+  delay(1000);
+  print3();
+  delay(1000);
+  print2();
+  delay(1000);
+  print1();
+  delay(1000);
+  print0();
+  delay(1000);
+}
+
+void setup() {
+  int i;//定義變數
+  for (i = 2; i <= 11; i++)
+    pinMode(i, OUTPUT); //設置2～11 引腳為輸出模式，也就是所有引腳
+}
+
+void loop() {
+  digitalWrite(Rled, HIGH); //紅燈跟倒數幾乎同時執行
+  count9sec();
+  
+  digitalWrite(Rled, LOW);  //記得關燈
+
+  digitalWrite(Gled, HIGH); //綠燈跟倒數幾乎同時執行
+  count7sec();
+  
+  digitalWrite(Gled, LOW); //記得關燈
+
+  for (int i = 0; i < 3; i++) {
+    delay(500);
+    digitalWrite(Yled, HIGH);//亮  黃燈
+    delay(500);
+    digitalWrite(Yled, LOW);//滅  黃燈
+    /* for迴圈，執行3次 */
+  }
+}
