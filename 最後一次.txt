@@ -1,0 +1,327 @@
+/***********************************************
+ README：
+ 不建議直接使用我的程式，建議自行修改
+ 我的控制都寫在副程式，方便以後查詢修改
+ 懶得對寫好的程式加註解了
+
+ V2是給第二個作業用的，沒加V2的是第一個作業
+ 誰叫李家瑋這麼雷不會coding ㄏㄏ
+************************************************/
+
+//定義數碼管port
+int Apipe = 2;
+int Bpipe = 3;
+int Cpipe = 4;
+int Dpipe = 5;
+int Epipe = 6;
+int Fpipe = 7;
+int Gpipe = 8;
+
+
+/*定義LED port*/
+int Rled = 9;  //紅
+int Yled = 10; //黃
+int Gled = 11; //綠
+int Rled_V2 = 12; //我用第二個紅色LED
+int Rled_V3 = 13; //第三個紅色LED
+
+
+/*******顯示數字0********/
+void print0(void) {
+  unsigned char list;
+  for (list = Apipe ; list <= Fpipe ; list++)
+    digitalWrite(list, HIGH);
+  digitalWrite(Gpipe, LOW);
+  // A~F管亮，G管滅
+}
+
+/*******顯示數字1********/
+void print1(void) {
+  unsigned char list;
+  for (list = Apipe; list <= 5; list++)
+    digitalWrite(list, LOW);
+  //把A、B、C、D燈管熄滅
+  digitalWrite(Gpipe, LOW); //G管熄滅
+
+  digitalWrite(Epipe, HIGH);
+  digitalWrite(Fpipe, HIGH);
+}
+
+/*******顯示數字2********/
+void print2(void) {
+  digitalWrite(Apipe, HIGH);
+  digitalWrite(Bpipe, HIGH);
+  digitalWrite(Cpipe, LOW);
+  digitalWrite(Dpipe, HIGH);
+  digitalWrite(Epipe, HIGH);
+  digitalWrite(Fpipe, LOW);
+  digitalWrite(Gpipe, HIGH);
+}
+
+/*******顯示數字3********/
+void print3(void) {
+  unsigned char list;
+  for (list = Apipe; list <= Dpipe; list++)
+    digitalWrite(list, HIGH);//一次亮A~Dpipe
+  digitalWrite(Gpipe, HIGH);
+
+  digitalWrite(Fpipe, LOW);
+  digitalWrite(Epipe, LOW);
+}
+
+/*******顯示數字4********/
+void print4(void) {
+  digitalWrite(Apipe, LOW);
+  digitalWrite(Bpipe, HIGH);
+  digitalWrite(Cpipe, HIGH);
+  digitalWrite(Dpipe, LOW);
+  digitalWrite(Epipe, LOW);
+  digitalWrite(Fpipe, HIGH);
+  digitalWrite(Gpipe, HIGH);
+}
+
+/*******顯示數字5********/
+void print5(void) {
+  digitalWrite(Apipe, HIGH);
+  digitalWrite(Bpipe, LOW);
+  digitalWrite(Cpipe, HIGH);
+  digitalWrite(Dpipe, HIGH);
+  digitalWrite(Epipe, LOW);
+  digitalWrite(Fpipe, HIGH);
+  digitalWrite(Gpipe, HIGH);
+}
+
+/*******顯示數字6********/
+void print6(void) {
+  digitalWrite(Apipe, HIGH);
+  digitalWrite(Bpipe, LOW);
+  digitalWrite(Cpipe, HIGH);
+  digitalWrite(Dpipe, HIGH);
+  digitalWrite(Epipe, HIGH);
+  digitalWrite(Fpipe, HIGH);
+  digitalWrite(Gpipe, HIGH);
+}
+
+/*******顯示數字7********/
+void print7(void) {
+  unsigned char list;
+  for (list = Apipe; list <= Cpipe; list++)
+    digitalWrite(list, HIGH);
+  // ABC管亮
+  digitalWrite(Dpipe, LOW);
+  digitalWrite(Epipe, LOW);
+  digitalWrite(Fpipe, HIGH);
+  digitalWrite(Gpipe, LOW);
+}
+
+/*******顯示數字8********/
+void print8(void) {
+  unsigned char list;
+  for (list = Apipe; list <= Gpipe; list++)
+    digitalWrite(list, HIGH);
+  // 全部管亮
+}
+
+/*******顯示數字9********/
+void print9(void) {
+  unsigned char list;
+  for (list = Apipe; list <= Dpipe; list++)
+    digitalWrite(list, HIGH);
+  // ABCD管亮
+  digitalWrite(Epipe, LOW);
+  digitalWrite(Fpipe, HIGH);
+  digitalWrite(Gpipe, HIGH);
+}
+
+void count_everyLED_2sec(void) { //倒數9秒副程式
+  print1();
+  digitalWrite(Rled, HIGH); //紅燈跟倒數幾乎同時執行
+  delay(2000);
+  digitalWrite(Rled, LOW);  //記得關燈
+
+  print2();
+  digitalWrite(Yled, HIGH); //紅燈跟倒數幾乎同時執行
+  delay(2000);
+  digitalWrite(Yled, LOW);  //記得關燈
+
+  print3();
+  digitalWrite(Gled, HIGH); //紅燈跟倒數幾乎同時執行
+  delay(2000);
+  digitalWrite(Gled, LOW);  //記得關燈
+
+  print4();
+  digitalWrite(Rled_V2, HIGH); //紅燈跟倒數幾乎同時執行
+  delay(2000);
+  digitalWrite(Rled_V2, LOW);  //記得關燈
+}
+
+void count_everyLED_halfsec(void) {
+  print1();
+  digitalWrite(Rled, HIGH); //紅燈跟倒數幾乎同時執行
+  delay(500);
+  digitalWrite(Rled, LOW);  //記得關燈
+
+  print2();
+  digitalWrite(Yled, HIGH); //紅燈跟倒數幾乎同時執行
+  delay(500);
+  digitalWrite(Yled, LOW);  //記得關燈
+
+  print3();
+  digitalWrite(Gled, HIGH); //紅燈跟倒數幾乎同時執行
+  delay(500);
+  digitalWrite(Gled, LOW);  //記得關燈
+
+  print4();
+  digitalWrite(Rled_V2, HIGH); //紅燈跟倒數幾乎同時執行
+  delay(500);
+  digitalWrite(Rled_V2, LOW);  //記得關燈
+}
+
+void count_everyLED_2sec_V2(void) { //倒數9秒副程式
+  print1();
+  digitalWrite(Rled, HIGH); //紅燈跟倒數幾乎同時執行
+  delay(2000);
+  digitalWrite(Rled, LOW);  //記得關燈
+
+  print2();
+  digitalWrite(Yled, HIGH); //紅燈跟倒數幾乎同時執行
+  delay(2000);
+  digitalWrite(Yled, LOW);  //記得關燈
+
+  print3();
+  digitalWrite(Gled, HIGH); //紅燈跟倒數幾乎同時執行
+  delay(2000);
+  digitalWrite(Gled, LOW);  //記得關燈
+
+  print4();
+  digitalWrite(Rled_V2, HIGH); //紅燈跟倒數幾乎同時執行
+  delay(2000);
+  digitalWrite(Rled_V2, LOW);  //記得關燈
+
+  print5();
+  digitalWrite(Rled_V3, HIGH); //紅燈跟倒數幾乎同時執行
+  delay(2000);
+  digitalWrite(Rled_V3, LOW);  //記得關燈
+}
+
+void count_everyLED_halfsec_V2(void) {
+  print1();
+  digitalWrite(Rled, HIGH); //紅燈跟倒數幾乎同時執行
+  delay(500);
+  digitalWrite(Rled, LOW);  //記得關燈
+
+  print2();
+  digitalWrite(Yled, HIGH); //紅燈跟倒數幾乎同時執行
+  delay(500);
+  digitalWrite(Yled, LOW);  //記得關燈
+
+  print3();
+  digitalWrite(Gled, HIGH); //紅燈跟倒數幾乎同時執行
+  delay(500);
+  digitalWrite(Gled, LOW);  //記得關燈
+
+  print4();
+  digitalWrite(Rled_V2, HIGH); //紅燈跟倒數幾乎同時執行
+  delay(500);
+  digitalWrite(Rled_V2, LOW);  //記得關燈
+
+  print5();
+  digitalWrite(Rled_V3, HIGH); //紅燈跟倒數幾乎同時執行
+  delay(500);
+  digitalWrite(Rled_V3, LOW);  //記得關燈
+
+}
+
+/*
+void loop_2sec(void) {
+  digitalWrite(Rled, HIGH); //紅燈跟倒數幾乎同時執行
+  delay(2000);
+  digitalWrite(Rled, LOW);  //記得關燈
+
+  digitalWrite(Gled, HIGH); //紅燈跟倒數幾乎同時執行
+  delay(2000);
+  digitalWrite(Gled, LOW);  //記得關燈
+
+  digitalWrite(Yled, HIGH); //紅燈跟倒數幾乎同時執行
+  delay(2000);
+  digitalWrite(Yled, LOW);  //記得關燈
+
+  digitalWrite(Rled_V2, HIGH); //紅燈跟倒數幾乎同時執行
+  delay(2000);
+  digitalWrite(Rled_V2, LOW);  //記得關燈
+}
+
+void loop_halfsec(void) {
+  digitalWrite(Rled, HIGH); //紅燈跟倒數幾乎同時執行
+  delay(500);
+  digitalWrite(Rled, LOW);  //記得關燈
+
+  digitalWrite(Gled, HIGH); //紅燈跟倒數幾乎同時執行
+  delay(500);
+  digitalWrite(Gled, LOW);  //記得關燈
+
+  digitalWrite(Yled, HIGH); //紅燈跟倒數幾乎同時執行
+  delay(500);
+  digitalWrite(Yled, LOW);  //記得關燈
+
+  digitalWrite(Rled_V2, HIGH); //紅燈跟倒數幾乎同時執行
+  delay(500);
+  digitalWrite(Rled_V2, LOW);  //記得關燈
+}
+
+void loop_2sec_V2(void) {
+  digitalWrite(Rled, HIGH); //紅燈跟倒數幾乎同時執行
+  delay(2000);
+  digitalWrite(Rled, LOW);  //記得關燈
+
+  digitalWrite(Gled, HIGH); //紅燈跟倒數幾乎同時執行
+  delay(2000);
+  digitalWrite(Gled, LOW);  //記得關燈
+
+  digitalWrite(Yled, HIGH); //紅燈跟倒數幾乎同時執行
+  delay(2000);
+  digitalWrite(Yled, LOW);  //記得關燈
+
+  digitalWrite(Rled_V2, HIGH); //紅燈跟倒數幾乎同時執行
+  delay(2000);
+  digitalWrite(Rled_V2, LOW);  //記得關燈
+
+  digitalWrite(Rled_V3, HIGH); //紅燈跟倒數幾乎同時執行
+  delay(2000);
+  digitalWrite(Rled_V3, LOW);  //記得關燈
+}
+
+void loop_halfsec_(void) {
+  digitalWrite(Rled, HIGH); //紅燈跟倒數幾乎同時執行
+  delay(500);
+  digitalWrite(Rled, LOW);  //記得關燈
+
+  digitalWrite(Gled, HIGH); //紅燈跟倒數幾乎同時執行
+  delay(500);
+  digitalWrite(Gled, LOW);  //記得關燈
+
+  digitalWrite(Yled, HIGH); //紅燈跟倒數幾乎同時執行
+  delay(500);
+  digitalWrite(Yled, LOW);  //記得關燈
+
+  digitalWrite(Rled_V2, HIGH); //紅燈跟倒數幾乎同時執行
+  delay(500);
+  digitalWrite(Rled_V2, LOW);  //記得關燈
+
+  digitalWrite(Rled_V3, HIGH); //紅燈跟倒數幾乎同時執行
+  delay(500);
+  digitalWrite(Rled_V3, LOW);  //記得關燈
+}
+
+*/
+
+void setup() {
+  int i;//定義變數
+  for (i = 2; i <= 13; i++)
+    pinMode(i, OUTPUT); //設置2～11 引腳為輸出模式，也就是所有引腳
+}
+
+void loop() {
+  count_everyLED_2sec_V2();
+  count_everyLED_halfsec_V2();
+}
